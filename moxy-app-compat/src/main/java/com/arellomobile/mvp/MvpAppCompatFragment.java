@@ -62,6 +62,7 @@ public class MvpAppCompatFragment extends Fragment {
 
 		getMvpDelegate().onDetach();
 		getMvpDelegate().onDestroyView();
+		getMvpDelegate().removeAllChildDelegates();
 	}
 
 	@Override
