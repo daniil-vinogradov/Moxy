@@ -190,6 +190,10 @@ public class MvpDelegate<Delegated> {
 		for (MvpDelegate<?> childDelegate : mChildDelegates) {
 			childDelegate.onDestroyView();
 		}
+
+		if (mParentDelegate != null) {
+			removeParentDelegate();
+		}
 	}
 
 	/**
