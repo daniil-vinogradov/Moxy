@@ -52,7 +52,6 @@ public class MvpAppCompatDialogFragment extends AppCompatDialogFragment {
 
 		getMvpDelegate().onDetach();
 		getMvpDelegate().onDestroyView();
-		getMvpDelegate().removeAllChildDelegates();
 	}
 
 	@Override
