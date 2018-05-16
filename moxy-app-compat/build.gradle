@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 apply plugin: 'maven'
 
@@ -219,6 +220,38 @@ task createPomXml << {
     }.writeTo(publishMavenDir + "/pom.xml")
 
 
+}
+
+publishing {
+    publications {
+        jar(MavenPublication) {
+            groupId 'com.arello-mobile'
+            version = 'fixed-memory-leak'
+            artifactId 'moxy-app-compat'
+
+            // Tell maven to prepare the generated "*.aar" file for publishing
+            artifact("$buildDir/libs/moxy-app-compat.jar")
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'https://artifactory.e-legion.com/artifactory'
+    publish {
+        repository {
+            repoKey = 'libs-release-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+        defaults {
+            // Tell the Artifactory Plugin which artifacts should be published to Artifactory.
+            publications('jar')
+            publishArtifacts = true
+
+            // Publish generated POM files to Artifactory (true by default)
+            publishPom = true
+        }
+    }
 }
 
 compileJava.dependsOn clearPublishDir

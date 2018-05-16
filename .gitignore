@@ -36,3 +36,5 @@ captures/
 .idea/
 
 VERSION
+
+gradle.properties
